@@ -158,3 +158,51 @@ display:grid;
 grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 gap:20px;
 }
+.service{
+background:#ffffff;
+padding:20px;
+border-radius:15px;
+text-align:center;
+box-shadow:0 5px 15px rgba(0,0,0,.1);
+transition:0.3s;
+}
+
+.service:hover{
+transform:translateY(-8px);
+}
+
+.btn{
+display:inline-block;
+padding:12px 24px;
+border-radius:8px;
+text-decoration:none;
+font-weight:bold;
+margin:10px 5px;
+}
+
+.call{
+background:#28a745;
+color:#fff;
+}
+
+.whatsapp{
+background:#25D366;
+color:#fff;
+}
+
+@media(max-width:768px){
+.navbar{
+flex-direction:column;
+padding:15px;
+}
+
+.navbar ul{
+flex-direction:column;
+text-align:center;
+gap:10px;
+}
+
+.hero h1{
+font-size:30px;
+}
+}
