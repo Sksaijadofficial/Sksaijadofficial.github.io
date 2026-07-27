@@ -194,3 +194,18 @@ footer{
 .social-links a:hover{
     transform:translateY(-5px);
 }
+#map{
+    padding:60px 20px;
+    text-align:center;
+    background:#f7f9fc;
+}
+
+#map h2{
+    margin-bottom:20px;
+}
+
+#map iframe{
+    max-width:900px;
+    width:100%;
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
