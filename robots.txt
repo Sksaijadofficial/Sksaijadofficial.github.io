@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sksaijadofficial.github.io/sitemap.xml
