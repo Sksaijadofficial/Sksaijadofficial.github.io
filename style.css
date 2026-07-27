@@ -125,4 +125,48 @@ footer{
 
 .whatsapp-float:hover{
     transform:scale(1.1);
+#themeBtn{
+    position:fixed;
+    left:20px;
+    bottom:20px;
+    width:55px;
+    height:55px;
+    border:none;
+    border-radius:50%;
+    background:#222;
+    color:#fff;
+    font-size:22px;
+    cursor:pointer;
+    z-index:1000;
+}
+
+#topBtn{
+    position:fixed;
+    right:20px;
+    bottom:90px;
+    width:55px;
+    height:55px;
+    border:none;
+    border-radius:50%;
+    background:#007bff;
+    color:#fff;
+    font-size:22px;
+    cursor:pointer;
+    display:none;
+    z-index:1000;
+}
+
+.dark{
+    background:#121212;
+    color:#fff;
+}
+
+.dark section{
+    background:#121212;
+    color:#fff;
+}
+
+.dark .card{
+    background:#1f1f1f;
+    color:#fff;
 }
