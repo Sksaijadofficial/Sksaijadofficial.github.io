@@ -40,3 +40,25 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+const themeBtn = document.getElementById("themeBtn");
+
+themeBtn.onclick = () => {
+    document.body.classList.toggle("dark");
+};
+
+const topBtn = document.getElementById("topBtn");
+
+window.onscroll = function () {
+    if (document.documentElement.scrollTop > 300) {
+        topBtn.style.display = "block";
+    } else {
+        topBtn.style.display = "none";
+    }
+};
+
+function topFunction() {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
