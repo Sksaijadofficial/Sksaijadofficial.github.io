@@ -210,3 +210,18 @@ footer{
     box-shadow:0 10px 25px rgba(0,0,0,.15);
 }
 Sk Saijad Auto Service Owner Name RahidaSaijad
+#reviews{
+padding:60px 20px;
+text-align:center;
+}
+
+#reviews .cards{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+}
+
+#reviews .card{
+max-width:320px;
+}
