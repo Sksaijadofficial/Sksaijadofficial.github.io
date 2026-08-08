@@ -225,3 +225,110 @@ gap:20px;
 #reviews .card{
 max-width:320px;
 }
+/* 🌙 Dark Mode Button */
+#themeBtn {
+    position: fixed;
+    top: 90px;
+    right: 20px;
+    z-index: 9999;
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 50%;
+    background: #ffffff;
+    color: #222;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+    transition: 0.3s ease;
+}
+
+#themeBtn:hover {
+    transform: scale(1.08);
+}
+
+/* 🌙 Dark Theme */
+body.dark-mode {
+    background: #121212;
+    color: #eeeeee;
+}
+
+/* Sections */
+body.dark-mode section {
+    background: #121212;
+    color: #eeeeee;
+}
+
+/* Headings */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3 {
+    color: #ffffff;
+}
+
+/* Paragraphs */
+body.dark-mode p {
+    color: #dddddd;
+}
+
+/* Cards */
+body.dark-mode .card {
+    background: #1e1e1e;
+    color: #ffffff;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.35);
+}
+
+/* Card text */
+body.dark-mode .card p {
+    color: #dddddd;
+}
+
+/* Navigation */
+body.dark-mode .navbar {
+    background: #111111;
+}
+
+body.dark-mode .navbar a {
+    color: #ffffff;
+}
+
+/* Footer */
+body.dark-mode footer {
+    background: #080808;
+    color: #ffffff;
+}
+
+body.dark-mode footer p {
+    color: #ffffff;
+}
+
+/* Map */
+body.dark-mode #map {
+    background: #121212;
+}
+
+/* Dark Mode Button */
+body.dark-mode #themeBtn {
+    background: #222222;
+    color: #ffffff;
+}
+
+/* Smooth transition */
+body,
+section,
+.card,
+.navbar,
+footer {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    #themeBtn {
+        top: 75px;
+        right: 15px;
+        width: 44px;
+        height: 44px;
+        font-size: 20px;
+    }
+}
