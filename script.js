@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (themeBtn) {
 
-        // Remember previous theme
         if (localStorage.getItem("theme") === "dark") {
             document.body.classList.add("dark-mode");
             themeBtn.textContent = "☀️";
@@ -49,7 +48,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const href = this.getAttribute("href");
 
-            // Ignore empty #
             if (!href || href === "#") {
                 return;
             }
@@ -117,7 +115,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         });
 
-        // Close menu after clicking a link
         navMenu.querySelectorAll("a").forEach(function (link) {
 
             link.addEventListener("click", function () {
@@ -150,6 +147,166 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
     });
+
+
+    // ==========================================
+    // ⭐ STAR RATING SYSTEM
+    // ==========================================
+
+    const ratingStars = document.querySelectorAll("#ratingStars button");
+    const ratingText = document.getElementById("ratingText");
+    const submitRating = document.getElementById("submitRating");
+    const averageRating = document.getElementById("averageRating");
+    const ratingCount = document.getElementById("ratingCount");
+
+    let selectedRating = 0;
+
+    const ratingMessages = {
+        1: "😞 Very Poor",
+        2: "😕 Poor",
+        3: "🙂 Good",
+        4: "😊 Very Good",
+        5: "🤩 Excellent!"
+    };
+
+
+    // Load saved ratings
+    function loadRatings() {
+
+        const savedRatings =
+            JSON.parse(localStorage.getItem("skSaijadRatings")) || [];
+
+        if (savedRatings.length > 0) {
+
+            const total = savedRatings.reduce(
+                function (sum, rating) {
+                    return sum + rating;
+                },
+                0
+            );
+
+            const average = total / savedRatings.length;
+
+            if (averageRating) {
+                averageRating.textContent = average.toFixed(1);
+            }
+
+            if (ratingCount) {
+                ratingCount.textContent = savedRatings.length;
+            }
+
+        } else {
+
+            if (averageRating) {
+                averageRating.textContent = "0.0";
+            }
+
+            if (ratingCount) {
+                ratingCount.textContent = "0";
+            }
+
+        }
+
+    }
+
+
+    // Select Star
+    ratingStars.forEach(function (star) {
+
+        star.addEventListener("click", function () {
+
+            selectedRating = Number(
+                this.getAttribute("data-rating")
+            );
+
+            ratingStars.forEach(function (item) {
+
+                const value = Number(
+                    item.getAttribute("data-rating")
+                );
+
+                if (value <= selectedRating) {
+                    item.classList.add("selected");
+                } else {
+                    item.classList.remove("selected");
+                }
+
+            });
+
+            if (ratingText) {
+                ratingText.textContent =
+                    ratingMessages[selectedRating];
+            }
+
+        });
+
+    });
+
+
+    // Submit Rating
+    if (submitRating) {
+
+        submitRating.addEventListener("click", function () {
+
+            if (selectedRating === 0) {
+
+                alert("⭐ Please select a star rating first.");
+
+                return;
+            }
+
+            const alreadyRated =
+                localStorage.getItem("skSaijadUserRated");
+
+            if (alreadyRated === "yes") {
+
+                alert("🙏 You have already submitted your rating.");
+
+                return;
+            }
+
+
+            const savedRatings =
+                JSON.parse(
+                    localStorage.getItem("skSaijadRatings")
+                ) || [];
+
+
+            savedRatings.push(selectedRating);
+
+
+            localStorage.setItem(
+                "skSaijadRatings",
+                JSON.stringify(savedRatings)
+            );
+
+
+            localStorage.setItem(
+                "skSaijadUserRated",
+                "yes"
+            );
+
+
+            loadRatings();
+
+
+            alert(
+                "❤️ Thank you for rating Sk Saijad Official!"
+            );
+
+        });
+
+    }
+
+
+    // Load rating on website opening
+    if (
+        ratingStars.length > 0 &&
+        averageRating &&
+        ratingCount
+    ) {
+        loadRatings();
+    }
 
 
     // ==========================================
