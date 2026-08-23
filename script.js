@@ -1,50 +1,159 @@
-// ==========================================
-// Sk Saijad Official Website
-// Main JavaScript
-// ==========================================
+"use strict";
 
-console.log("Welcome to Sk Saijad Official");
+// ==========================================================
+// Sk Saijad Official
+// PREMIUM MAIN JAVASCRIPT
+// ==========================================================
+
+console.log("🚕 Sk Saijad Official - Website Starting...");
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    // ==========================================
-    // 🌙 Dark / Light Mode
-    // ==========================================
+    // ======================================================
+    // 🌙 DARK / LIGHT MODE
+    // ======================================================
 
     const themeBtn = document.getElementById("themeBtn");
 
-    if (themeBtn) {
+    function applyTheme(theme) {
 
-        if (localStorage.getItem("theme") === "dark") {
+        if (theme === "dark") {
             document.body.classList.add("dark-mode");
-            themeBtn.textContent = "☀️";
-        } else {
-            themeBtn.textContent = "🌙";
-        }
 
-        themeBtn.addEventListener("click", function () {
-
-            document.body.classList.toggle("dark-mode");
-
-            if (document.body.classList.contains("dark-mode")) {
+            if (themeBtn) {
                 themeBtn.textContent = "☀️";
-                localStorage.setItem("theme", "dark");
-            } else {
-                themeBtn.textContent = "🌙";
-                localStorage.setItem("theme", "light");
+                themeBtn.setAttribute(
+                    "aria-label",
+                    "Switch to Light Mode"
+                );
             }
 
-        });
+        } else {
+            document.body.classList.remove("dark-mode");
+
+            if (themeBtn) {
+                themeBtn.textContent = "🌙";
+                themeBtn.setAttribute(
+                    "aria-label",
+                    "Switch to Dark Mode"
+                );
+            }
+        }
     }
 
 
-    // ==========================================
-    // 🔗 Smooth Scroll
-    // ==========================================
+    const savedTheme = localStorage.getItem("theme");
+
+    if (savedTheme === "dark") {
+        applyTheme("dark");
+    } else {
+        applyTheme("light");
+    }
+
+
+    if (themeBtn) {
+
+        themeBtn.addEventListener("click", function () {
+
+            const isDark =
+                document.body.classList.contains("dark-mode");
+
+            if (isDark) {
+
+                applyTheme("light");
+                localStorage.setItem("theme", "light");
+
+            } else {
+
+                applyTheme("dark");
+                localStorage.setItem("theme", "dark");
+
+            }
+
+        });
+
+    }
+
+
+    // ======================================================
+    // 📱 MOBILE MENU
+    // ======================================================
+
+    const menuBtn = document.getElementById("menuBtn");
+    const navMenu = document.getElementById("navMenu");
+
+    if (menuBtn && navMenu) {
+
+        menuBtn.setAttribute("aria-expanded", "false");
+
+        menuBtn.addEventListener("click", function () {
+
+            const isOpen =
+                navMenu.classList.toggle("active");
+
+            menuBtn.setAttribute(
+                "aria-expanded",
+                isOpen ? "true" : "false"
+            );
+
+            menuBtn.textContent =
+                isOpen ? "✕" : "☰";
+
+        });
+
+
+        // Close menu after clicking a link
+
+        navMenu.querySelectorAll("a").forEach(function (link) {
+
+            link.addEventListener("click", function () {
+
+                navMenu.classList.remove("active");
+
+                menuBtn.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+                menuBtn.textContent = "☰";
+
+            });
+
+        });
+
+
+        // Close menu when clicking outside
+
+        document.addEventListener("click", function (event) {
+
+            if (
+                navMenu.classList.contains("active") &&
+                !navMenu.contains(event.target) &&
+                !menuBtn.contains(event.target)
+            ) {
+
+                navMenu.classList.remove("active");
+
+                menuBtn.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+                menuBtn.textContent = "☰";
+            }
+
+        });
+
+    }
+
+
+    // ======================================================
+    // 🔗 SMOOTH SCROLL
+    // ======================================================
 
     document.querySelectorAll('a[href^="#"]').forEach(function (link) {
 
-        link.addEventListener("click", function (e) {
+        link.addEventListener("click", function (event) {
 
             const href = this.getAttribute("href");
 
@@ -52,15 +161,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            const target = document.querySelector(href);
+            const target =
+                document.querySelector(href);
 
             if (target) {
-                e.preventDefault();
+
+                event.preventDefault();
 
                 target.scrollIntoView({
                     behavior: "smooth",
                     block: "start"
                 });
+
             }
 
         });
@@ -68,131 +180,178 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-    // ==========================================
-    // ⬆️ Back To Top Button
-    // ==========================================
+    // ======================================================
+    // ⬆️ BACK TO TOP
+    // ======================================================
 
-    const topBtn = document.getElementById("topBtn");
+    const topBtn =
+        document.getElementById("topBtn");
+
 
     if (topBtn) {
 
         topBtn.style.display = "none";
 
-        window.addEventListener("scroll", function () {
+        window.addEventListener(
+            "scroll",
+            function () {
 
-            if (window.scrollY > 300) {
-                topBtn.style.display = "block";
-            } else {
-                topBtn.style.display = "none";
+                if (window.scrollY > 350) {
+
+                    topBtn.style.display = "flex";
+
+                } else {
+
+                    topBtn.style.display = "none";
+
+                }
+
+            },
+            { passive: true }
+        );
+
+
+        topBtn.addEventListener(
+            "click",
+            function () {
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+
             }
-
-        });
-
-        topBtn.addEventListener("click", function () {
-
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-
-        });
+        );
 
     }
 
 
-    // ==========================================
-    // 📱 Mobile Menu
-    // ==========================================
-
-    const menuBtn = document.getElementById("menuBtn");
-    const navMenu = document.getElementById("navMenu");
-
-    if (menuBtn && navMenu) {
-
-        menuBtn.addEventListener("click", function () {
-
-            navMenu.classList.toggle("active");
-
-        });
-
-        navMenu.querySelectorAll("a").forEach(function (link) {
-
-            link.addEventListener("click", function () {
-                navMenu.classList.remove("active");
-            });
-
-        });
-
-    }
-
-
-    // ==========================================
+    // ======================================================
     // ❓ FAQ
-    // ==========================================
+    // ======================================================
 
-    const faqItems = document.querySelectorAll(".faq-item");
+    const faqItems =
+        document.querySelectorAll(".faq-item");
 
     faqItems.forEach(function (item) {
 
-        const question = item.querySelector(".faq-question");
+        const question =
+            item.querySelector(".faq-question");
 
         if (question) {
 
-            question.addEventListener("click", function () {
+            question.addEventListener(
+                "click",
+                function () {
 
-                item.classList.toggle("active");
+                    item.classList.toggle("active");
 
-            });
+                }
+            );
 
         }
 
     });
 
 
-    // ==========================================
+    // ======================================================
     // ⭐ STAR RATING SYSTEM
-    // ==========================================
+    // ======================================================
 
-    const ratingStars = document.querySelectorAll("#ratingStars button");
-    const ratingText = document.getElementById("ratingText");
-    const submitRating = document.getElementById("submitRating");
-    const averageRating = document.getElementById("averageRating");
-    const ratingCount = document.getElementById("ratingCount");
+    const ratingStars =
+        document.querySelectorAll(
+            "#ratingStars button"
+        );
+
+    const ratingText =
+        document.getElementById("ratingText");
+
+    const submitRating =
+        document.getElementById("submitRating");
+
+    const averageRating =
+        document.getElementById("averageRating");
+
+    const ratingCount =
+        document.getElementById("ratingCount");
+
 
     let selectedRating = 0;
 
+
     const ratingMessages = {
+
         1: "😞 Very Poor",
+
         2: "😕 Poor",
+
         3: "🙂 Good",
+
         4: "😊 Very Good",
+
         5: "🤩 Excellent!"
+
     };
 
 
-    // Load saved ratings
+    // ------------------------------------------------------
+    // Load Ratings
+    // ------------------------------------------------------
+
     function loadRatings() {
 
-        const savedRatings =
-            JSON.parse(localStorage.getItem("skSaijadRatings")) || [];
+        let savedRatings = [];
+
+        try {
+
+            savedRatings =
+                JSON.parse(
+                    localStorage.getItem(
+                        "skSaijadRatings"
+                    )
+                ) || [];
+
+        } catch (error) {
+
+            console.warn(
+                "Could not read saved ratings."
+            );
+
+            savedRatings = [];
+
+        }
+
 
         if (savedRatings.length > 0) {
 
-            const total = savedRatings.reduce(
-                function (sum, rating) {
-                    return sum + rating;
-                },
-                0
-            );
+            const total =
+                savedRatings.reduce(
+                    function (sum, rating) {
 
-            const average = total / savedRatings.length;
+                        return sum + Number(rating);
+
+                    },
+                    0
+                );
+
+
+            const average =
+                total / savedRatings.length;
+
 
             if (averageRating) {
-                averageRating.textContent = average.toFixed(1);
+
+                averageRating.textContent =
+                    average.toFixed(1);
+
             }
 
+
             if (ratingCount) {
-                ratingCount.textContent = savedRatings.length;
+
+                ratingCount.textContent =
+                    savedRatings.length;
+
             }
 
         } else {
@@ -210,110 +369,211 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
+    // ------------------------------------------------------
     // Select Star
+    // ------------------------------------------------------
+
     ratingStars.forEach(function (star) {
 
-        star.addEventListener("click", function () {
+        star.addEventListener(
+            "click",
+            function () {
 
-            selectedRating = Number(
-                this.getAttribute("data-rating")
-            );
+                selectedRating =
+                    Number(
+                        this.getAttribute(
+                            "data-rating"
+                        )
+                    );
 
-            ratingStars.forEach(function (item) {
 
-                const value = Number(
-                    item.getAttribute("data-rating")
+                ratingStars.forEach(
+                    function (item) {
+
+                        const value =
+                            Number(
+                                item.getAttribute(
+                                    "data-rating"
+                                )
+                            );
+
+
+                        if (
+                            value <= selectedRating
+                        ) {
+
+                            item.classList.add(
+                                "selected"
+                            );
+
+                        } else {
+
+                            item.classList.remove(
+                                "selected"
+                            );
+
+                        }
+
+                    }
                 );
 
-                if (value <= selectedRating) {
-                    item.classList.add("selected");
-                } else {
-                    item.classList.remove("selected");
+
+                if (ratingText) {
+
+                    ratingText.textContent =
+                        ratingMessages[
+                            selectedRating
+                        ];
+
                 }
 
-            });
-
-            if (ratingText) {
-                ratingText.textContent =
-                    ratingMessages[selectedRating];
             }
-
-        });
+        );
 
     });
 
 
+    // ------------------------------------------------------
     // Submit Rating
+    // ------------------------------------------------------
+
     if (submitRating) {
 
-        submitRating.addEventListener("click", function () {
+        submitRating.addEventListener(
+            "click",
+            function () {
 
-            if (selectedRating === 0) {
+                if (selectedRating === 0) {
 
-                alert("⭐ Please select a star rating first.");
+                    alert(
+                        "⭐ Please select a star rating first."
+                    );
 
-                return;
+                    return;
+
+                }
+
+
+                const alreadyRated =
+                    localStorage.getItem(
+                        "skSaijadUserRated"
+                    );
+
+
+                if (alreadyRated === "yes") {
+
+                    alert(
+                        "🙏 You have already submitted your rating from this browser."
+                    );
+
+                    return;
+
+                }
+
+
+                let savedRatings = [];
+
+                try {
+
+                    savedRatings =
+                        JSON.parse(
+                            localStorage.getItem(
+                                "skSaijadRatings"
+                            )
+                        ) || [];
+
+                } catch (error) {
+
+                    savedRatings = [];
+
+                }
+
+
+                savedRatings.push(
+                    selectedRating
+                );
+
+
+                localStorage.setItem(
+                    "skSaijadRatings",
+                    JSON.stringify(
+                        savedRatings
+                    )
+                );
+
+
+                localStorage.setItem(
+                    "skSaijadUserRated",
+                    "yes"
+                );
+
+
+                loadRatings();
+
+
+                submitRating.disabled = true;
+
+                submitRating.textContent =
+                    "✅ Rating Submitted";
+
+
+                alert(
+                    "❤️ Thank you for rating Sk Saijad Official!"
+                );
+
             }
-
-            const alreadyRated =
-                localStorage.getItem("skSaijadUserRated");
-
-            if (alreadyRated === "yes") {
-
-                alert("🙏 You have already submitted your rating.");
-
-                return;
-            }
-
-
-            const savedRatings =
-                JSON.parse(
-                    localStorage.getItem("skSaijadRatings")
-                ) || [];
-
-
-            savedRatings.push(selectedRating);
-
-
-            localStorage.setItem(
-                "skSaijadRatings",
-                JSON.stringify(savedRatings)
-            );
-
-
-            localStorage.setItem(
-                "skSaijadUserRated",
-                "yes"
-            );
-
-
-            loadRatings();
-
-
-            alert(
-                "❤️ Thank you for rating Sk Saijad Official!"
-            );
-
-        });
+        );
 
     }
 
 
-    // Load rating on website opening
+    // ------------------------------------------------------
+    // Load Rating On Page Open
+    // ------------------------------------------------------
+
     if (
         ratingStars.length > 0 &&
         averageRating &&
         ratingCount
     ) {
+
         loadRatings();
+
     }
 
 
-    // ==========================================
-    // 👋 Website Loaded
-    // ==========================================
+    // ======================================================
+    // 📞 PHONE / WHATSAPP SAFETY
+    // ======================================================
 
-    console.log("Website Loaded Successfully");
+    document
+        .querySelectorAll(
+            'a[target="_blank"]'
+        )
+        .forEach(function (link) {
+
+            if (
+                !link.hasAttribute(
+                    "rel"
+                )
+            ) {
+
+                link.setAttribute(
+                    "rel",
+                    "noopener noreferrer"
+                );
+
+            }
+
+        });
+
+
+    // ======================================================
+    // ✨ PAGE LOADED
+    // ======================================================
+
+    console.log(
+        "✅ Sk Saijad Official Website Loaded Successfully!"
+    );
 
 });
-
